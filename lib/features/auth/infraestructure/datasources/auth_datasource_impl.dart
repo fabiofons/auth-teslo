@@ -23,11 +23,15 @@ class AuthDatasourceImpl extends AuthDatasource {
       return user;
 
     } on DioException catch (e) {
-      if (e.response?.statusCode == 401) throw WrongCredentials();
-      if(e.type == DioExceptionType.connectionTimeout) throw ConnectionTimeout();
-      throw CustomError('Something when wrong', 1);
+      if (e.response?.statusCode == 401) {
+        throw CustomError(e.response?.data['message'] ?? 'User or Password Incorrect');
+      }
+      if(e.type == DioExceptionType.connectionTimeout) {
+        throw CustomError('Timeout reached');
+      } 
+      throw Exception();
     } catch (e) {
-      throw CustomError('Something when wrong', 1);
+      throw Exception();
     }
   }
 
