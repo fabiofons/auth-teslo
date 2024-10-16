@@ -37,14 +37,15 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.copyWith(
       user: user,
       authStatus: AuthStatus.authenticated,
+      errorMessage: '',
     );
   }
   
   void logout ([String? errorMessage]) {
     state = state.copyWith(
-      authStatus: AuthStatus.notAuthenticated,
       user: null,
-      errorMessage: errorMessage
+      authStatus: AuthStatus.notAuthenticated,
+      errorMessage: errorMessage,
     );
   }
 }
