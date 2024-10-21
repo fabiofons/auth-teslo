@@ -1,10 +1,9 @@
 import 'package:teslo_shop/features/products/domain/domain.dart';
 
 class ProductsRepositoryImpl extends ProductsRepository {
-
   final ProductsDatasource datasource;
 
-  ProductsRepositoryImpl({required this.datasource});
+  ProductsRepositoryImpl(this.datasource);
 
   @override
   Future<Product> createUpdateProduct(Map<String, dynamic> productLike) {
@@ -25,5 +24,4 @@ class ProductsRepositoryImpl extends ProductsRepository {
   Future<List<Product>> searchProductByTerm(String term) {
     return datasource.searchProductByTerm(term);
   }
-
 }
