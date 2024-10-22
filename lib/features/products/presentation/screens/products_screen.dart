@@ -46,11 +46,16 @@ class _ProductsView extends ConsumerStatefulWidget {
 
 class _ProductsViewState extends ConsumerState {
 
-  final ScrollController scrollController = ScrollController();
+  final scrollController = ScrollController();
 
   @override
   void initState() {
-    ref.read(productsProvider.notifier).loadNextPage();
+    scrollController.addListener(() {
+      if(scrollController.position.pixels + 130 >= scrollController.position.maxScrollExtent ) {
+        ref.read(productsProvider.notifier).loadNextPage();
+      }
+    },);
+    
     super.initState();
   }
 
@@ -67,6 +72,7 @@ final productsState = ref.watch(productsProvider);
     return Padding(
       padding: EdgeInsets.all(10),
       child: MasonryGridView.count(
+        controller: scrollController,
         crossAxisCount: 2, 
         mainAxisSpacing: 20,
         crossAxisSpacing: 35,
